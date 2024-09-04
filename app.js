@@ -8,6 +8,12 @@ document.addEventListener('DOMContentLoaded', () => {
     navigator.mediaDevices.getUserMedia({ video: true })
         .then(stream => {
             video.srcObject = stream;
+
+            // Update canvas size when video metadata is loaded
+            video.addEventListener('loadedmetadata', () => {
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+            });
         })
         .catch(error => {
             console.error('Error accessing camera:', error);
